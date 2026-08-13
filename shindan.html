@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あなたはどの推し?診断</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'ヒラギノ角ゴ Pro', 'Yu Gothic', sans-serif;
+            background: linear-gradient(135deg, #ffd9e8 0%, #fff5f7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #d946a6;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-size: 20px;
+            color: #333;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .question-counter {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-option {
+            background: linear-gradient(135deg, #ffb3d9 0%, #ff99cc 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 179, 217, 0.3);
+        }
+
+        .btn-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 179, 217, 0.5);
+        }
+
+        .btn-start, .btn-restart {
+            background: linear-gradient(135deg, #d946a6 0%, #c41e8a 100%);
+            color: white;
+            font-size: 18px;
+            padding: 20px 30px;
+            box-shadow: 0 4px 15px rgba(217, 70, 166, 0.3);
+        }
+
+        .btn-start:hover, .btn-restart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(217, 70, 166, 0.5);
+        }
+
+        .result-image {
+            width: 200px;
+            height: 250px;
+            margin: 20px auto;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-name {
+            font-size: 28px;
+            color: #d946a6;
+            margin: 20px 0 10px;
+            font-weight: bold;
+        }
+
+        .result-type {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .result-message {
+            font-size: 16px;
+            color: #333;
+            background: #fff5f7;
+            padding: 15px;
+            border-radius: 10px;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ffb3d9 0%, #d946a6 100%);
+            transition: width 0.3s ease;
+        }
+
+        .decoration {
+            font-size: 12px;
+            color: #ffb3d9;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ページ1: タイトル -->
+        <div class="page active" id="page-title">
+            <div>
+                <h1>✨あなたはどのタイプ?✨</h1>
+                <p class="subtitle">5つの質問であなたの推しタイプが決まる!</p>
+                <p class="decoration">｜ 診断結果は6タイプ ｜</p>
+                <p class="subtitle">あなたにぴったりの推し、見つけちゃいましょう!</p>
+            </div>
+            <button class="btn-start" onclick="startDiagnosis()">診断をはじめる</button>
+        </div>
+
+        <!-- ページ2-6: 質問 -->
+        <div class="page" id="page-q1">
+            <div class="question-counter">質問 1/5</div>
+            <div class="progress-bar"><div class="progress" style="width: 20%"></div></div>
+            <h2 class="question-title">休日の過ごし方は?</h2>
+            <div class="buttons">
+                <button class="btn-option" onclick="answerQuestion(1, 'A')">アクティブに外出・スポーツ・やることいっぱい</button>
+                <button class="btn-option" onclick="answerQuestion(1, 'B')">のんびり室内でマイペースに過ごす</button>
+            </div>
+        </div>
+
+        <div class="page" id="page-q2">
+            <div class="question-counter">質問 2/5</div>
+            <div class="progress-bar"><div class="progress" style="width: 40%"></div></div>
+            <h2 class="question-title">グループでのあなたの立場は?</h2>
+            <div class="buttons">
+                <button class="btn-option" onclick="answerQuestion(2, 'A')">盛り上げたり、目立つ方が得意</button>
+                <button class="btn-option" onclick="answerQuestion(2, 'B')">そっと支えたり、影で動くタイプ</button>
+            </div>
+        </div>
+
+        <div class="page" id="page-q3">
+            <div class="question-counter">質問 3/5</div>
+            <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
+            <h2 class="question-title">何かに没頭するとしたら?</h2>
+            <div class="buttons">
+                <button class="btn-option" onclick="answerQuestion(3, 'A')">一つのことを極める・深掘りする</button>
+                <button class="btn-option" onclick="answerQuestion(3, 'B')">いろんなことに手を出す・器用貧乏</button>
+            </div>
+        </div>
+
+        <div class="page" id="page-q4">
+            <div class="question-counter">質問 4/5</div>
+            <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+            <h2 class="question-title">気分や気ままさについて、あなたはどっち?</h2>
+            <div class="buttons">
+                <button class="btn-option" onclick="answerQuestion(4, 'A')">気分屋・マイペース・臨機応変</button>
+                <button class="btn-option" onclick="answerQuestion(4, 'B')">責任感強い・人に合わせる・計画的</button>
+            </div>
+        </div>
+
+        <div class="page" id="page-q5">
+            <div class="question-counter">質問 5/5</div>
+            <div class="progress-bar"><div class="progress" style="width: 100%"></div></div>
+            <h2 class="question-title">疲れた時、どうしたい?</h2>
+            <div class="buttons">
+                <button class="btn-option" onclick="answerQuestion(5, 'A')">元気をもらいたい・誰かと一緒にいたい</button>
+                <button class="btn-option" onclick="answerQuestion(5, 'B')">一人で落ち着きたい・静かに過ごしたい</button>
+            </div>
+        </div>
+
+        <!-- ページ7: 結果 -->
+        <div class="page" id="page-result">
+            <div>
+                <h1>あなたは...</h1>
+                <img class="result-image" id="result-image" src="images/character.png" alt="result">
+                <div class="result-name" id="result-name">超</div>
+                <div class="result-type" id="result-type">体育会系パッションタイプ</div>
+                <div class="result-message" id="result-message">お祝いメッセージ</div>
+            </div>
+            <button class="btn-restart" onclick="restartDiagnosis()">もう一度診断する</button>
+        </div>
+    </div>
+
+    <script>
+        const characters = {
+            '超': {
+                type: '体育会系パッションタイプ',
+                message: 'お祝いメッセージ(超)',
+                image: 'images/character.png'
+            },
+            'は': {
+                type: '頭が切れる知性派タイプ',
+                message: 'お祝いメッセージ(は)',
+                image: 'images/character.png'
+            },
+            'こ': {
+                type: '多才クリエイタータイプ',
+                message: 'お祝いメッセージ(こ)',
+                image: 'images/character.png'
+            },
+            'き': {
+                type: '癒し系マイナスイオンタイプ',
+                message: 'お祝いメッセージ(き)',
+                image: 'images/character.png'
+            },
+            'む': {
+                type: '頼りになるみんなのママタイプ',
+                message: 'お祝いメッセージ(む)',
+                image: 'images/character.png'
+            },
+            'わ': {
+                type: '愛すべきマイペースタイプ',
+                message: 'お祝いメッセージ(わ)',
+                image: 'images/character.png'
+            }
+        };
+
+        const scores = {
+            '超': 0,
+            'は': 0,
+            'こ': 0,
+            'き': 0,
+            'む': 0,
+            'わ': 0
+        };
+
+        const scoringRules = {
+            1: {
+                'A': { '超': 2, 'こ': 1 },
+                'B': { 'き': 2, 'む': 1 }
+            },
+            2: {
+                'A': { '超': 2, 'こ': 1 },
+                'B': { 'む': 2, 'は': 1 }
+            },
+            3: {
+                'A': { 'こ': 2, 'わ': 1 },
+                'B': { 'は': 2, 'き': 1 }
+            },
+            4: {
+                'A': { 'わ': 2, 'こ': 0.5 },
+                'B': { 'む': 2, 'は': 1 }
+            },
+            5: {
+                'A': { '超': 1.5, 'こ': 1.5 },
+                'B': { 'き': 2, 'わ': 1 }
+            }
+        };
+
+        let currentQuestion = 1;
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function startDiagnosis() {
+            resetScores();
+            currentQuestion = 1;
+            showPage('page-q1');
+        }
+
+        function answerQuestion(question, answer) {
+            // スコア加算
+            const rules = scoringRules[question][answer];
+            for (const [char, score] of Object.entries(rules)) {
+                scores[char] += score;
+            }
+
+            // 次の質問へ
+            if (question < 5) {
+                currentQuestion = question + 1;
+                showPage(`page-q${currentQuestion}`);
+            } else {
+                // 結果表示
+                showResult();
+            }
+        }
+
+        function showResult() {
+            // 最高スコアのキャラを取得
+            const resultChar = Object.keys(scores).reduce((a, b) => 
+                scores[a] > scores[b] ? a : b
+            );
+
+            const charData = characters[resultChar];
+            document.getElementById('result-name').textContent = resultChar;
+            document.getElementById('result-type').textContent = charData.type;
+            document.getElementById('result-message').textContent = charData.message;
+            document.getElementById('result-image').src = charData.image;
+
+            showPage('page-result');
+        }
+
+        function resetScores() {
+            for (const char of Object.keys(scores)) {
+                scores[char] = 0;
+            }
+        }
+
+        function restartDiagnosis() {
+            startDiagnosis();
+        }
+    </script>
+</body>
+</html>
