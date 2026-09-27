@@ -12,11 +12,8 @@
         }
 
         body {
-            font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN', 'Yu Gothic', sans-serif;
-            background-image: url('8E152055-68DB-4B1C-91CE-D9A81D924400.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            font-family: 'Hiragino Mincho ProN', '游明朝', 'Yu Mincho', serif;
+            background: radial-gradient(ellipse at top, #1e2a52 0%, #0d1530 60%, #070b1c 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -27,18 +24,40 @@
         .container {
             width: 100%;
             max-width: 500px;
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            padding: 30px 24px;
+            background: linear-gradient(160deg, #10173a 0%, #1a2352 100%);
+            border: 2px solid #c9a86a;
+            box-shadow:
+                0 0 0 6px #0d1530,
+                0 0 0 7px #c9a86a,
+                0 10px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 6px;
+            padding: 34px 24px;
             text-align: center;
             min-height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
         }
+
+        /* コーナー装飾 */
+        .container::before,
+        .container::after {
+            content: '❖';
+            position: absolute;
+            color: #c9a86a;
+            font-size: 18px;
+        }
+        .container::before { top: 10px; left: 10px; }
+        .container::after { bottom: 10px; right: 10px; }
+
+        .corner-tr, .corner-bl {
+            position: absolute;
+            color: #c9a86a;
+            font-size: 18px;
+        }
+        .corner-tr { top: 10px; right: 10px; }
+        .corner-bl { bottom: 10px; left: 10px; }
 
         .page {
             display: none;
@@ -53,48 +72,72 @@
 
         /* ===== タイトルページ ===== */
         .school-plate {
-            background: linear-gradient(135deg, #6b7fd7 0%, #4a5bc4 100%);
-            color: #fff;
-            padding: 14px 10px;
-            border-radius: 10px;
-            font-size: 18px;
-            letter-spacing: 3px;
+            background: linear-gradient(135deg, #c9a86a 0%, #9c7d3f 100%);
+            color: #10173a;
+            padding: 12px 10px;
+            border-radius: 4px;
+            font-size: 16px;
+            letter-spacing: 4px;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(74, 91, 196, 0.4);
-            margin-bottom: 6px;
+            box-shadow: 0 4px 14px rgba(201, 168, 106, 0.35);
+            margin-bottom: 10px;
+            border: 1px solid #ffe9b3;
         }
 
         .title-wrap {
             position: relative;
-            padding: 10px 0;
+            padding: 14px 0;
         }
 
         .sparkle {
             position: absolute;
-            font-size: 22px;
-            animation: sparkle-anim 1.6s infinite ease-in-out;
+            font-size: 20px;
+            color: #ffe9b3;
+            animation: sparkle-anim 1.8s infinite ease-in-out;
+            text-shadow: 0 0 8px rgba(255, 233, 179, 0.8);
         }
-        .sparkle.s1 { top: -6px; left: 8%; animation-delay: 0s; }
-        .sparkle.s2 { top: 10px; right: 10%; animation-delay: 0.4s; }
-        .sparkle.s3 { bottom: -4px; left: 20%; animation-delay: 0.8s; }
-        .sparkle.s4 { bottom: 20px; right: 4%; animation-delay: 1.2s; }
+        .sparkle.s1 { top: -4px; left: 6%; animation-delay: 0s; }
+        .sparkle.s2 { top: 14px; right: 8%; animation-delay: 0.45s; }
+        .sparkle.s3 { bottom: -2px; left: 18%; animation-delay: 0.9s; }
+        .sparkle.s4 { bottom: 24px; right: 2%; animation-delay: 1.35s; }
 
         @keyframes sparkle-anim {
-            0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
-            50% { opacity: 1; transform: scale(1.3) rotate(20deg); }
+            0%, 100% { opacity: 0.25; transform: scale(0.75) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.25) rotate(20deg); }
+        }
+
+        .ribbon-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 4px auto;
+            width: 80%;
+        }
+        .ribbon-line::before,
+        .ribbon-line::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c9a86a, transparent);
+        }
+        .ribbon-diamond {
+            color: #c9a86a;
+            font-size: 12px;
         }
 
         h1.main-title {
-            font-size: 34px;
-            background: linear-gradient(90deg, #ff8fc7, #ff6fae, #ffb3d9, #ff8fc7);
+            font-size: 32px;
+            color: #f5e6bf;
+            background: linear-gradient(90deg, #ffe9b3, #c9a86a, #fff3d6, #c9a86a);
             background-size: 300% auto;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine 3s linear infinite;
-            font-weight: 900;
-            line-height: 1.4;
-            text-shadow: 0 2px 10px rgba(255, 140, 200, 0.3);
+            animation: shine 3.5s linear infinite;
+            font-weight: 700;
+            line-height: 1.5;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 14px rgba(201, 168, 106, 0.25);
         }
 
         @keyframes shine {
@@ -103,48 +146,55 @@
         }
 
         .subtitle-big {
-            font-size: 17px;
-            color: #555;
-            margin-top: 14px;
-            line-height: 1.6;
+            font-size: 15px;
+            color: #cfd6ec;
+            margin-top: 16px;
+            line-height: 1.8;
+            letter-spacing: 1px;
         }
 
         .deco-line {
-            font-size: 14px;
-            color: #ff6fae;
-            margin: 14px 0;
+            font-size: 13px;
+            color: #c9a86a;
+            margin: 16px 0;
             font-weight: bold;
+            letter-spacing: 1px;
         }
 
         button {
             border: none;
-            border-radius: 16px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.2s ease;
             font-family: inherit;
+            letter-spacing: 1px;
         }
 
         .btn-option {
-            background: linear-gradient(135deg, #ffb3d9 0%, #ff85bd 100%);
-            color: white;
-            box-shadow: 0 5px 14px rgba(255, 133, 189, 0.4);
-            padding: 22px 20px;
-            font-size: 19px;
-            line-height: 1.5;
+            background: linear-gradient(160deg, #1a2352 0%, #10173a 100%);
+            color: #f5e6bf;
+            border: 1.5px solid #c9a86a;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+            padding: 20px 18px;
+            font-size: 17px;
+            line-height: 1.6;
+            border-radius: 4px;
         }
 
         .btn-option:active {
             transform: scale(0.97);
+            background: linear-gradient(160deg, #24306b 0%, #161f4a 100%);
         }
 
         .btn-start {
-            background: linear-gradient(135deg, #ff8fc7 0%, #ff5fa0 100%);
-            color: white;
-            font-size: 22px;
-            padding: 24px 30px;
-            box-shadow: 0 6px 20px rgba(255, 95, 160, 0.45);
-            animation: float 2.2s ease-in-out infinite;
+            background: linear-gradient(135deg, #c9a86a 0%, #9c7d3f 100%);
+            color: #10173a;
+            font-size: 20px;
+            padding: 20px 30px;
+            box-shadow: 0 6px 20px rgba(201, 168, 106, 0.4);
+            animation: float 2.4s ease-in-out infinite;
+            border-radius: 4px;
+            border: 1px solid #ffe9b3;
         }
 
         @keyframes float {
@@ -153,53 +203,55 @@
         }
 
         .btn-restart {
-            background: linear-gradient(135deg, #6b7fd7 0%, #4a5bc4 100%);
-            color: white;
-            font-size: 18px;
-            padding: 18px 26px;
-            box-shadow: 0 5px 16px rgba(74, 91, 196, 0.4);
+            background: linear-gradient(135deg, #c9a86a 0%, #9c7d3f 100%);
+            color: #10173a;
+            font-size: 17px;
+            padding: 16px 26px;
+            box-shadow: 0 5px 16px rgba(201, 168, 106, 0.35);
+            border-radius: 4px;
         }
 
         .buttons {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 15px;
         }
 
         .question-title {
-            font-size: 25px;
-            color: #333;
+            font-size: 23px;
+            color: #f5e6bf;
             font-weight: bold;
-            line-height: 1.5;
+            line-height: 1.6;
+            letter-spacing: 1px;
         }
 
         .question-counter {
-            font-size: 15px;
-            color: #ff6fae;
+            font-size: 13px;
+            color: #c9a86a;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 3px;
         }
 
         .progress-bar {
             width: 100%;
-            height: 6px;
-            background: #f0d5e3;
-            border-radius: 3px;
+            height: 3px;
+            background: rgba(201, 168, 106, 0.2);
             overflow: hidden;
+            margin-top: 8px;
         }
 
         .progress {
             height: 100%;
-            background: linear-gradient(90deg, #ffb3d9 0%, #ff5fa0 100%);
+            background: linear-gradient(90deg, #c9a86a, #ffe9b3);
             transition: width 0.3s ease;
         }
 
         /* ===== 結果ページ ===== */
         .result-visual-wrap {
-            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            box-shadow: 0 0 0 2px #10173a, 0 0 0 3px #c9a86a, 0 10px 30px rgba(0,0,0,0.5);
             cursor: pointer;
+            border-radius: 4px;
         }
 
         .result-visual-wrap img {
@@ -208,10 +260,11 @@
         }
 
         .teaser-hint {
-            font-size: 15px;
-            color: #ff5fa0;
+            font-size: 14px;
+            color: #ffe9b3;
             font-weight: bold;
             margin-top: -6px;
+            letter-spacing: 1px;
         }
 
         .result-card {
@@ -227,32 +280,60 @@
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* サプライズバッジ */
+        .surprise-badge {
+            display: none;
+            background: linear-gradient(135deg, #ffe9b3 0%, #c9a86a 100%);
+            color: #10173a;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 9px 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 14px rgba(201, 168, 106, 0.5);
+            animation: badge-pop 0.6s ease;
+            letter-spacing: 1px;
+            border: 1px solid #fff3d6;
+        }
+        .surprise-badge.show {
+            display: inline-block;
+        }
+        @keyframes badge-pop {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <span class="corner-tr">❖</span>
+        <span class="corner-bl">❖</span>
+
         <!-- ページ1: タイトル -->
         <div class="page active" id="page-title">
             <div>
                 <div class="school-plate">私立 超はあこきむわ学園</div>
                 <div class="title-wrap">
-                    <span class="sparkle s1">✨</span>
-                    <span class="sparkle s2">⭐</span>
-                    <span class="sparkle s3">💫</span>
-                    <span class="sparkle s4">✨</span>
+                    <span class="sparkle s1">✦</span>
+                    <span class="sparkle s2">✧</span>
+                    <span class="sparkle s3">✦</span>
+                    <span class="sparkle s4">✧</span>
+                    <div class="ribbon-line"><span class="ribbon-diamond">◆</span></div>
                     <h1 class="main-title">あなたの<br>推しタイプは<br>どれ?</h1>
+                    <div class="ribbon-line"><span class="ribbon-diamond">◆</span></div>
                 </div>
-                <p class="subtitle-big">5つの質問に答えるだけ!<br>あなたにぴったりの推しが見つかる</p>
-                <p class="deco-line">♦ 診断結果は6タイプ ♦</p>
+                <p class="subtitle-big">6つの質問に答えるだけ<br>あなたにぴったりの推しが見つかります</p>
+                <p class="deco-line">✦ ごく稀に、特別な推しが現れる… ✦</p>
             </div>
             <button class="btn-start" onclick="startDiagnosis()">診断をはじめる ▶</button>
         </div>
 
-        <!-- ページ2-6: 質問 -->
+        <!-- ページ2-7: 質問 -->
         <div class="page" id="page-q1">
             <div>
-                <div class="question-counter">Q. 1 / 5</div>
-                <div class="progress-bar"><div class="progress" style="width: 20%"></div></div>
+                <div class="question-counter">Q . 1 / 6</div>
+                <div class="progress-bar"><div class="progress" style="width: 16.6%"></div></div>
             </div>
             <h2 class="question-title">休日の過ごし方は?</h2>
             <div class="buttons">
@@ -263,8 +344,8 @@
 
         <div class="page" id="page-q2">
             <div>
-                <div class="question-counter">Q. 2 / 5</div>
-                <div class="progress-bar"><div class="progress" style="width: 40%"></div></div>
+                <div class="question-counter">Q . 2 / 6</div>
+                <div class="progress-bar"><div class="progress" style="width: 33.3%"></div></div>
             </div>
             <h2 class="question-title">グループでのあなたの立場は?</h2>
             <div class="buttons">
@@ -275,8 +356,8 @@
 
         <div class="page" id="page-q3">
             <div>
-                <div class="question-counter">Q. 3 / 5</div>
-                <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
+                <div class="question-counter">Q . 3 / 6</div>
+                <div class="progress-bar"><div class="progress" style="width: 50%"></div></div>
             </div>
             <h2 class="question-title">何かに没頭するとしたら?</h2>
             <div class="buttons">
@@ -287,8 +368,8 @@
 
         <div class="page" id="page-q4">
             <div>
-                <div class="question-counter">Q. 4 / 5</div>
-                <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+                <div class="question-counter">Q . 4 / 6</div>
+                <div class="progress-bar"><div class="progress" style="width: 66.6%"></div></div>
             </div>
             <h2 class="question-title">気分や気ままさについて、あなたはどっち?</h2>
             <div class="buttons">
@@ -299,8 +380,8 @@
 
         <div class="page" id="page-q5">
             <div>
-                <div class="question-counter">Q. 5 / 5</div>
-                <div class="progress-bar"><div class="progress" style="width: 100%"></div></div>
+                <div class="question-counter">Q . 5 / 6</div>
+                <div class="progress-bar"><div class="progress" style="width: 83.3%"></div></div>
             </div>
             <h2 class="question-title">疲れた時、どうしたい?</h2>
             <div class="buttons">
@@ -309,7 +390,19 @@
             </div>
         </div>
 
-        <!-- ページ7: 結果 -->
+        <div class="page" id="page-q6">
+            <div>
+                <div class="question-counter">Q . 6 / 6</div>
+                <div class="progress-bar"><div class="progress" style="width: 100%"></div></div>
+            </div>
+            <h2 class="question-title">人前に立つ時のあなたは?</h2>
+            <div class="buttons">
+                <button class="btn-option" onclick="answerQuestion(6, 'A')">魅せる・目立つのが好き</button>
+                <button class="btn-option" onclick="answerQuestion(6, 'B')">自然体・内に秘めるタイプ</button>
+            </div>
+        </div>
+
+        <!-- ページ8: 結果 -->
         <div class="page" id="page-result">
             <div id="result-teaser-wrap">
                 <div class="result-visual-wrap" id="result-teaser" onclick="revealResult()">
@@ -319,6 +412,7 @@
             </div>
 
             <div class="result-card" id="result-card">
+                <div class="surprise-badge" id="surprise-badge">✦ 奇跡の特別出現 ✦</div>
                 <div class="result-visual-wrap">
                     <img id="reveal-image" src="" alt="result">
                 </div>
@@ -328,33 +422,60 @@
     </div>
 
     <script>
-        // 6人分のキャラクターデータ(実際の診断メーカー画像を使用)
-        const characters = {
+        // 友達6人(診断で決まる本編メンバー)
+        const friends = {
             'おき': {
-                teaser: 'images/oki_teaser.png',
-                reveal: 'images/oki_reveal.png'
+                teaser: 'images/oki_teaser.jpg',
+                reveal: 'images/oki_reveal.jpg'
             },
             'かほ': {
-                teaser: 'images/kaho_teaser.png',
-                reveal: 'images/kaho_reveal.png'
+                teaser: 'images/kaho_teaser.jpg',
+                reveal: 'images/kaho_reveal.jpg'
             },
             'こやなぎ': {
-                teaser: 'images/koyanagi_teaser.png',
-                reveal: 'images/koyanagi_reveal.png'
+                teaser: 'images/koyanagi_teaser.jpg',
+                reveal: 'images/koyanagi_reveal.jpg'
             },
             'はる': {
-                teaser: 'images/haru_teaser.png',
-                reveal: 'images/haru_reveal.png'
+                teaser: 'images/haru_teaser.jpg',
+                reveal: 'images/haru_reveal.jpg'
             },
             'りほP': {
-                teaser: 'images/riho_teaser.png',
-                reveal: 'images/riho_reveal.png'
+                teaser: 'images/riho_teaser.jpg',
+                reveal: 'images/riho_reveal.jpg'
             },
             'なべ': {
-                teaser: 'images/nabe_teaser.png',
-                reveal: 'images/nabe_reveal.png'
+                teaser: 'images/nabe_teaser.jpg',
+                reveal: 'images/nabe_reveal.jpg'
             }
         };
+
+        // M!LK5人(ランダムサプライズ枠・診断結果に関係なく低確率で出現)
+        const milk = {
+            'hayato': {
+                teaser: 'images/hayato_teaser.jpg',
+                reveal: 'images/hayato_reveal.jpg'
+            },
+            'daichi': {
+                teaser: 'images/daichi_teaser.jpg',
+                reveal: 'images/daichi_reveal.jpg'
+            },
+            'shunta': {
+                teaser: 'images/shunta_teaser.jpg',
+                reveal: 'images/shunta_reveal.jpg'
+            },
+            'jutaro': {
+                teaser: 'images/jutaro_teaser.jpg',
+                reveal: 'images/jutaro_reveal.jpg'
+            },
+            'jinto': {
+                teaser: 'images/jinto_teaser.jpg',
+                reveal: 'images/jinto_reveal.jpg'
+            }
+        };
+
+        // サプライズ(ミルク登場)の確率。0.2 = 20%
+        const SURPRISE_RATE = 0.2;
 
         const scores = {
             'おき': 0,
@@ -365,28 +486,31 @@
             'なべ': 0
         };
 
-        // スコアリングルール(キャラ名を実名に変更)
-        // おき=体育会系, かほ=知性派, こやなぎ=多才クリエイター, はる=癒し系, りほP=ママ, なべ=マイペース
+        // 6問構成のスコアリングルール(友達6人向け)
         const scoringRules = {
             1: {
                 'A': { 'おき': 2, 'こやなぎ': 1 },
-                'B': { 'はる': 2, 'りほP': 1 }
+                'B': { 'はる': 2, 'なべ': 1 }
             },
             2: {
-                'A': { 'おき': 2, 'こやなぎ': 1 },
-                'B': { 'りほP': 2, 'かほ': 1 }
+                'A': { 'おき': 2, 'かほ': 1 },
+                'B': { 'りほP': 2, 'はる': 1 }
             },
             3: {
-                'A': { 'こやなぎ': 2, 'なべ': 1 },
-                'B': { 'かほ': 2, 'はる': 1 }
+                'A': { 'こやなぎ': 2, 'かほ': 1 },
+                'B': { 'なべ': 2, 'こやなぎ': 0.5 }
             },
             4: {
                 'A': { 'なべ': 2, 'こやなぎ': 0.5 },
                 'B': { 'りほP': 2, 'かほ': 1 }
             },
             5: {
-                'A': { 'おき': 1.5, 'こやなぎ': 1.5 },
+                'A': { 'おき': 1.5, 'かほ': 1.5 },
                 'B': { 'はる': 2, 'なべ': 1 }
+            },
+            6: {
+                'A': { 'かほ': 2, 'おき': 1 },
+                'B': { 'はる': 1, 'りほP': 1, 'なべ': 0.5 }
             }
         };
 
@@ -409,7 +533,7 @@
                 scores[char] += score;
             }
 
-            if (question < 5) {
+            if (question < 6) {
                 currentQuestion = question + 1;
                 showPage(`page-q${currentQuestion}`);
             } else {
@@ -418,13 +542,32 @@
         }
 
         function showResult() {
-            const resultChar = Object.keys(scores).reduce((a, b) =>
-                scores[a] > scores[b] ? a : b
-            );
+            let charData;
+            let isSurprise = false;
 
-            const charData = characters[resultChar];
+            // サプライズ判定(ミルクがランダムで出るかどうか)
+            if (Math.random() < SURPRISE_RATE) {
+                const milkKeys = Object.keys(milk);
+                const randomKey = milkKeys[Math.floor(Math.random() * milkKeys.length)];
+                charData = milk[randomKey];
+                isSurprise = true;
+            } else {
+                // 通常通り診断スコアで友達を決定
+                const resultChar = Object.keys(scores).reduce((a, b) =>
+                    scores[a] > scores[b] ? a : b
+                );
+                charData = friends[resultChar];
+            }
+
             document.getElementById('teaser-image').src = charData.teaser;
             document.getElementById('reveal-image').src = charData.reveal;
+
+            const badge = document.getElementById('surprise-badge');
+            if (isSurprise) {
+                badge.classList.add('show');
+            } else {
+                badge.classList.remove('show');
+            }
 
             document.getElementById('result-teaser-wrap').style.display = 'block';
             document.getElementById('result-card').classList.remove('show');
